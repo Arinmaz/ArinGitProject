@@ -9,6 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Verify Current User Is Release Manager
+        run: |
+          echo Verifying Current User Is "${{ github.actor }}"
+          if [[ "${{ github.actor }}" != "Arinmaz" ]]; then
+            echo "ABORTING... Current User '${{ github.actor }}' is not The Release Manager."
+            exit 1
+          fi
+          echo Current User is the release Manager.
       - name: Build
         run: |
           echo building and packing and app...
